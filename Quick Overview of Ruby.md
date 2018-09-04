@@ -1,11 +1,11 @@
 https://paper.dropbox.com/doc/Intro-to-Ruby--AL4HGItw1LYbAcjGv4Wn~s5YAg-Qfk1WmqVWFnpm17c4EWZc#:uid=153219621954509491819747&h2=Syntax
 
-Intro to Ruby
+# Intro to Ruby
 
 ----------
 
 
-Description
+# Description
 
 “A programmer’s best friend”, ruby is a perfectly object-oriented language. On it’s own, you need one of the following editors to write Ruby script:
 
@@ -15,11 +15,11 @@ Description
 - Ruby Development Environment (RDE) is also a very good IDE for windows users.
 
 
-Syntax
+# Syntax
 
 File extension - .rb
 
-Hello World in Ruby
+- Hello World in Ruby
 
     #!/usr/bin/ruby -w
     
@@ -27,12 +27,12 @@ Hello World in Ruby
 
 puts stdouts to console
 
-Whitespace
+- Whitespace
 
     a + b #interpreted as a+b ( Here a is a local variable)
     a  +b #interpreted as a(+b) ( Here a is a method call)
 
-BEGIN and END
+- BEGIN and END
 
     BEGIN {
        code1
@@ -48,12 +48,12 @@ BEGIN and END
 
 Code in BEGIN will always execute first and code in END will always execute last.
 
-Comments
+- Comments
 
     # This is a comment.
 
 
-Resources
+# Resources
 
 The following link contains all other info regarding standard Ruby syntax. This should be easy to pick up on since Ruby has the standard OOP structure.
 https://www.tutorialspoint.com/ruby/index.htm
