@@ -44,13 +44,13 @@ puts stdouts to console
        code3
     }
     
-    # Order is code 1, code 2, code 3
+    Order is code 1, code 2, code 3
 
 Code in BEGIN will always execute first and code in END will always execute last.
 
 - Comments
 
-    # This is a comment.
+    This is a comment.
 
 
 # Resources
