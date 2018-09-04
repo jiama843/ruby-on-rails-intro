@@ -21,7 +21,8 @@ File extension - .rb
 
 - Hello World in Ruby
 
-    ```#!/usr/bin/ruby -w
+```
+    #!/usr/bin/ruby -w
     
     puts "Hello, Ruby!";```
 
@@ -29,12 +30,14 @@ puts stdouts to console
 
 - Whitespace
 
-    ```a + b #interpreted as a+b ( Here a is a local variable)
+```
+    a + b #interpreted as a+b ( Here a is a local variable)
     a  +b #interpreted as a(+b) ( Here a is a method call)```
 
 - BEGIN and END
-
-    ```BEGIN {
+    
+    ```
+    BEGIN {
        code1
     }
     
