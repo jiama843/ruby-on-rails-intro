@@ -21,20 +21,20 @@ File extension - .rb
 
 - Hello World in Ruby
 
-    #!/usr/bin/ruby -w
+    ```#!/usr/bin/ruby -w
     
-    puts "Hello, Ruby!";
+    puts "Hello, Ruby!";```
 
 puts stdouts to console
 
 - Whitespace
 
-    a + b #interpreted as a+b ( Here a is a local variable)
-    a  +b #interpreted as a(+b) ( Here a is a method call)
+    ```a + b #interpreted as a+b ( Here a is a local variable)
+    a  +b #interpreted as a(+b) ( Here a is a method call)```
 
 - BEGIN and END
 
-    BEGIN {
+    ```BEGIN {
        code1
     }
     
@@ -44,13 +44,13 @@ puts stdouts to console
        code3
     }
     
-    Order is code 1, code 2, code 3
+    # Order is code 1, code 2, code 3```
 
 Code in BEGIN will always execute first and code in END will always execute last.
 
 - Comments
 
-    This is a comment.
+    ```# This is a comment.```
 
 
 # Resources
