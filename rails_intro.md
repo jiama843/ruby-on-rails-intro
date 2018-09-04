@@ -23,9 +23,9 @@ Rails will by default follow it’s own set of conventions to prevent users from
 
 To create a new rails application, in terminal enter the command:
 
-    ```
+   
     rails new blog
-    ```
+   
 
 blog will be the root folder in a directory structure representing the Ruby on Rails webapp.
 
@@ -35,13 +35,13 @@ The app file will contain the main code (controllers, models, views, helpers, ma
 
 
 
-Starting Up
+# Starting Up
 
 To start the rails server run the command in /blog (directory root of project):
 
-    ```
+    
     bin/rails server
-    ```
+  
 
 After this, the page should be online.
 
