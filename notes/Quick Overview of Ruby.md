@@ -60,6 +60,9 @@ Code in BEGIN will always execute first and code in END will always execute last
     # This is a comment.
     ```
 
+- Methods
+
+    You do not have to explicitly return in Ruby.
 
 # Resources
 
