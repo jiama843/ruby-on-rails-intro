@@ -191,3 +191,147 @@ will create the following routes:
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_B9EA5557BBFC2DFE5DC9010F9057162E0E800B1DE390866B4AB78189AF25BFE8_1536162884056_image.png)
 
+Controller Namespaces and Routing
+
+For organization purposes, you may wish to organize groups of controllers under a namespace.
+
+The corresponding router entry for app/controllers/admin which contains articles/ and comments/ is:
+
+    namespace :admin do
+      resources :articles, :comments
+    end
+
+To route /articles to Admin::ArticlesController without constantly writing the /admin prefix
+
+    scope module: 'admin' do
+      resources :articles, :comments
+    end
+
+To route /admin/articles to ArticlesController without constantly writing the Admin:: module prefix
+
+    scope '/admin' do
+      resources :articles, :comments
+    end
+
+
+- Nested Routing
+
+Often times, resources will have children:
+
+    class Magazine < ApplicationRecord
+      has_many :ads
+    end
+    
+    class Ad < ApplicationRecord
+      belongs_to :magazine
+    end
+
+As a result, you can encompass nesting when routing:
+
+    resources :magazines do
+      resources :ads
+    end
+
+This corresponds to:
+
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_B9EA5557BBFC2DFE5DC9010F9057162E0E800B1DE390866B4AB78189AF25BFE8_1536168073924_image.png)
+
+
+Although you can nest as many resources as you want, it is best practice to implement shallow nesting.
+
+Shallow Nesting
+There is a keyword called shallow which will tell rails to implicitly handle routing for nested resources in a certain way.
+
+# Controllers
+
+A controller in RoR is defined as a class which inherits from ApplicationController. It is possible to override/add methods to the this class for custom features.
+
+- Methods and Actions
+
+A controller class should contain methods and perform actions.
+
+For example:
+
+    class ClientsController < ApplicationController:
+      def new
+        @Clients = Clients.new
+      end
+    end
+
+If the a user goes to the extension /clients/new to add a new client, Rails will create a new instance of ClientsController and call its new method.
+
+- Parameters
+
+There are 2 types of parameters:
+
+- query string → Everything after ? in a URL
+- POST data → Usually from an html form that comes from the user
+
+Both of these parameters are available in a param object.
+
+Case 1: Query String → Depending on the URL, we can access elements of the params (appears to be a map structure) with appropriate arguments
+
+    class ClientsController < ApplicationController
+      # clients: /clients?status=activated
+      def index
+        if params[:status] == "activated"
+          @clients = Client.activated
+        else
+          @clients = Client.inactivated
+        end
+      end
+    end
+
+Case 2: POST Parameters → 
+
+    class ClientsController < ApplicationController
+      # POST data stored in /clients
+      def create
+        @client = Client.new(params[:client])
+        if @client.save
+          redirect_to @client
+        else
+          # This line overrides the default rendering behavior, which
+          # would have been to render the "create" view.
+          render "new"
+        end
+      end
+    end
+
+# Migrations
+- Description
+
+Convenient method of altering databases in a structured and organized manner. Active Record will automatically work out what migrations need to be run and it tracks which migrations have already been run.
+
+- Structure of a Migration
+
+The following is the general structure of what a migration looks like:
+
+    class CreateProducts < ActiveRecord::Migration
+      def up
+        create_table :products do |t|
+          t.string :name
+          t.text :description
+          t.timestamps
+        end
+      end
+      def down
+        drop_table :products
+      end
+    end
+- Creating Migrations
+# Configuring Rails Components
+
+https://guides.rubyonrails.org/v4.2/configuring.html
+There are 4 standard ways to initialize code in Rails:
+
+- config/application.rb
+- Environment-specific configuration files
+- Initializers
+- After-initializers
+General Configuration
+
+
+Helpful Links
+
+https://stackoverflow.com/questions/4836820/what-is-the-meaning-of-do-in-ruby
