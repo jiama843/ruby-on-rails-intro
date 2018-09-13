@@ -111,7 +111,7 @@ After setting resources to article, an **article controller** needs to be define
 
 
     bin/rails generate controller Articles
-# Controllers
+# Controllers (Application Controller)
 
 https://guides.rubyonrails.org/action_controller_overview.html
 
@@ -134,6 +134,8 @@ For example:
 If the a user goes to the extension **/clients/new** to add a new client, Rails will create a new instance of **ClientsController** and call its **new** method.
 
 ## Parameters
+
+https://api.rubyonrails.org/classes/ActionController/Parameters.html
 
 There are 2 types of parameters:
 
@@ -171,7 +173,39 @@ Case 2: POST Parameters →
       end
     end
 
-https://api.rubyonrails.org/classes/ActionController/Parameters.html
+
+# Models (Active Record)
+
+https://guides.rubyonrails.org/active_record_basics.html
+
+## Object Relational Mapping (ORM)
+
+A direct mapping between the objects in an application and the relational database.
+
+***The important thing to note about Ruby on Rails is that objects are represented as entries in the database.***
+
+## CRUD: Reading and Writing Data
+
+**Create**
+Active record API supports easy creation of a database entry
+
+**Read**
+Active record API supports easy reading of databases
+
+**Update**
+Active record API supports easy updating of databases
+
+**Destroy**
+Active record API supports easy destroying of databases
+
+## Validations
+
+
+## Callbacks
+
+https://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
+
+Usually the first lines of code of a controller. The 
 
 # Routing
 
@@ -325,7 +359,114 @@ When running **magazine_ad_path**, you can pass in instances of objects instead 
 
 ## HTTP Verb Constraints (match keyword)
 
+Usually, you use verbs GET, POST, PUT, PATCH, … to match routes with the given verb, but it is possible to match multiple verbs at once by using the **match** and **via** keywords.
 
+Example of **match/via**:
+
+    match 'photos', to: 'photos#show', via: [:get, :post] 
+
+To match all verbs:
+
+    match 'photos', to: 'photos#show', via: :all
+# Mailing (Action Mailer)
+
+https://guides.rubyonrails.org/action_mailer_basics.html
+Action mailer is a ruby library that allows an application to send emails via mailer classes and views.
+
+Mailer classes inherit from `ActionMailer::Base` and live in `app/mailers`, and they have associated views that appear in `app/views`.
+
+## Sending Emails
+
+To create a user mailer, run the following script:
+
+     bin/rails generate mailer UserMailer
+
+This is very similar to creating controllers. To create one without the shell script, just create a class that inherits from Action Mailer.
+
+## Welcome email
+
+In the **user_mailer.rb** file, add the following code:
+
+    class UserMailer < ApplicationMailer
+      default from: 'notifications@example.com'
+     
+      def welcome_email
+        @user = params[:user]
+        @url  = 'http://example.com/login'
+        mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+      end
+    end
+
+We can call the **welcome_email** method to mail to a user with a defined **email**.
+
+**default from:** states the email address that sent the message
+**mail** will represent the actual message, with **to:** and **subject:** headers.
+
+The **Mailer View** is an html file that represents the message being sent. 
+
+A basic **Mailer View** (**welcome_email.html.erb** located in **app/views/user_mailer/**):
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+      </head>
+      <body>
+        <h1>Welcome to example.com, <%= @user.name %></h1>
+        <p>
+          You have successfully signed up to example.com,
+          your username is: <%= @user.login %>.<br>
+        </p>
+        <p>
+          To login to the site, just follow this link: <%= @url %>.
+        </p>
+        <p>Thanks for joining and have a great day!</p>
+      </body>
+    </html>
+
+Some clients will prefer text over html, so it is general practice to send a textual representation as well.
+
+A basic **Text File** (**welcome_email.text.erb** located in **app/views/user_mailer/**) would be:
+
+    Welcome to example.com, <%= @user.name %>
+    ===============================================
+     
+    You have successfully signed up to example.com,
+    your username is: <%= @user.login %>.
+     
+    To login to the site, just follow this link: <%= @url %>.
+     
+    Thanks for joining and have a great day!
+
+**Calling the mailer**
+
+Create a **User** scaffold if it hasn’t already been done yet:
+
+    bin/rails generate scaffold user name email login
+    bin/rails db:migrate
+
+Edit **users_controller.rb** to make a call to User Mailer after account creation (Typically in **create**):
+
+    class UsersController < ApplicationController
+      # POST /users
+      # POST /users.json
+      def create
+        @user = User.new(params[:user])
+     
+        respond_to do |format|
+          if @user.save
+            # Tell the UserMailer to send a welcome email after save
+            UserMailer.with(user: @user).welcome_email.deliver_later
+     
+            format.html { redirect_to(@user, notice: 'User was successfully created.') }
+            format.json { render json: @user, status: :created, location: @user }
+          else
+            format.html { render action: 'new' }
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+    end
 # Migrations
 ## Description
 
@@ -374,3 +515,4 @@ https://medium.freecodecamp.org/understanding-the-basics-of-ruby-on-rails-sql-da
 # Helpful Links
 
 https://stackoverflow.com/questions/4836820/what-is-the-meaning-of-do-in-ruby
+
