@@ -515,4 +515,3 @@ https://medium.freecodecamp.org/understanding-the-basics-of-ruby-on-rails-sql-da
 # Helpful Links
 
 https://stackoverflow.com/questions/4836820/what-is-the-meaning-of-do-in-ruby
-
