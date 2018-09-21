@@ -489,6 +489,22 @@ The following is the general structure of what a migration looks like:
       end
     end
 ## Creating Migrations
+
+Run the following line of code to generate a new migration
+
+    rails generate migration MIGRATION_NAME
+
+Afterwards, you can edit the migration:
+
+    class MIGRATION_NAME < ActiveRecord::Migration[5.0]
+      def change
+        #insert database changes
+      end
+    end
+
+Then you can apply the migration by running the following script and it will modify the existing database:
+
+    bin/rails db:migrate
 # Configuring Rails Components
 
 https://guides.rubyonrails.org/v4.2/configuring.html
