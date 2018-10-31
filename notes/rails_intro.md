@@ -368,6 +368,48 @@ Example of **match/via**:
 To match all verbs:
 
     match 'photos', to: 'photos#show', via: :all
+    
+# Websockets (Action Cable)
+
+https://edgeguides.rubyonrails.org/action_cable_overview.html
+
+ActionCable integrates web sockets into a Ruby on Rails application. It is used to push changes in **Real Time**.
+
+## Pub/Sub
+
+Action cable relies on a publish/subscription system as defined:
+
+![](https://d2mxuefqeaa7sj.cloudfront.net/s_B9EA5557BBFC2DFE5DC9010F9057162E0E800B1DE390866B4AB78189AF25BFE8_1540912048501_image.png)
+
+## Connections
+    module ApplicationCable
+      class Connection < ActionCable::Connection::Base
+      end
+    end
+
+Connections are the parents of any subscription. Anytime a new websocket is created, a new Connection object is initialized from the class.
+
+## Channels
+    # app/channels/application_cable/channel.rb
+    module ApplicationCable
+      class Channel < ActionCable::Channel::Base
+      end
+    end
+
+Channels are similar to controllers in the sense that they are where logic is specified. Above is a **base channel.** Similar to controllers, channels should inherit a base.
+
+**Subscriptions**
+
+    # app/channels/chat_channel.rb
+    class ChatChannel < ApplicationCable::Channel
+      # Called when the consumer has successfully
+      # become a subscriber to this channel.
+      def subscribed
+      end
+    end
+
+To subscribe a user to a channel, a subscribe function is necessary in the channel class. The subscribed method can have various ways to define subscribers.
+
 # Mailing (Action Mailer)
 
 https://guides.rubyonrails.org/action_mailer_basics.html
